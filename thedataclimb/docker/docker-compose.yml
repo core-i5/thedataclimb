@@ -1,0 +1,21 @@
+# Shared local stack for weekly practice. Start: make up · Stop: make down
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: climb
+      POSTGRES_PASSWORD: climb
+      POSTGRES_DB: climb
+    ports: ["5432:5432"]
+    volumes: [pgdata:/var/lib/postgresql/data]
+
+  redis:
+    image: redis:7
+    ports: ["6379:6379"]
+
+  kafka:
+    image: apache/kafka:3.8.0   # KRaft mode, no ZooKeeper
+    ports: ["9092:9092"]
+
+volumes:
+  pgdata:

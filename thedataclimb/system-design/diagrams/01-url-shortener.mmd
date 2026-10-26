@@ -1,0 +1,12 @@
+%% Render: paste into https://mermaid.live or a GitHub markdown ```mermaid block
+flowchart LR
+    C[Client] --> LB[Load balancer]
+    LB --> API[Create API]
+    LB --> RS[Redirect service]
+    API --> ALLOC[(ID range allocator<br/>etcd / ZooKeeper)]
+    API --> KV[(KV store<br/>code -> long URL)]
+    RS --> REDIS[(Redis cache)]
+    RS -.miss.-> KV
+    RS -- click event --> K[[Kafka: clicks]]
+    K --> SJ[Stream job<br/>per-link per-minute counts]
+    SJ --> OLAP[(OLAP store)]
